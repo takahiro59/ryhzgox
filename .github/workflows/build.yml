@@ -21,7 +21,7 @@ jobs:
         run: |
           git clone https://github.com/tailscale/tailscale.git ./tailscale-source
           cd tailscale-source
-          build_dist.sh --extra-small
+          ./build_dist.sh --extra-small
           go build -o ../tailscale.combined -tags ts_include_cli -ldflags="-s -w" -trimpath ./cmd/tailscaled
           cd ../
           upx --ultra-brute tailscale.combined
