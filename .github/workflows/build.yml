@@ -12,7 +12,8 @@ jobs:
       - name: Build mitmdump
         run: |
           wget -O mitmproxy.tar.gz https://downloads.mitmproxy.org/10.2.4/mitmproxy-10.2.4-linux-x86_64.tar.gz
-          tar xf mitmproxy.tar.gz -O mitmdump
+          tar xf mitmproxy.tar.gz -O mitmdump > mitmdump
+          chmod +x mitmdump
           upx --ultra-brute mitmdump
       - name: Building tailscale.combined
         run: |
