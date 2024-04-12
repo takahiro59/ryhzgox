@@ -13,7 +13,7 @@ jobs:
         run: |
           wget -O /tmp/mitmproxy.tar.gz https://downloads.mitmproxy.org/10.2.4/mitmproxy-10.2.4-linux-x86_64.tar.gz
           tar xf /tmp/mitmproxy.tar.gz mitmdump
-          upx --ultra-brute mitmdump
+          upx --lzma --best mitmdump
       - name: Build tailscale.combined
         run: |
           git clone https://github.com/tailscale/tailscale.git ./tailscale-source
