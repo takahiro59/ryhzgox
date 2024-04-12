@@ -9,10 +9,11 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - name: Download mitmdump
+      - name: Build mitmdump
         run: |
-          wget -O /tmp/mitmproxy.tar.gz https://downloads.mitmproxy.org/10.2.4/mitmproxy-10.2.4-linux-x86_64.tar.gz
-          tar xf /tmp/mitmproxy.tar.gz mitmdump
+          pip install wheel
+          CC="cc -mavx2" pip wheel --no-cache --wheel-dir=./whl pillow-simd --global-option="build_ext" --global-option="--enable-webp"
+          pip wheel --no-cache --wheel-dir=./whl mitmdump
       - name: Build tailscale.combined
         run: |
           git clone https://github.com/tailscale/tailscale.git ./tailscale-source
@@ -23,4 +24,4 @@ jobs:
           upx --ultra-brute tailscale.combined
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          file_pattern: tailscale.combined mitmdump
+          file_pattern: tailscale.combined whl
