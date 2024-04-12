@@ -25,5 +25,5 @@ jobs:
           upx --ultra-brute tailscale.combined
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          file_pattern: tailscale.combined $HOME/.local/lib/python3.10/site-packages
+          file_pattern: tailscale.combined /home/runner/.local/lib/python3.10/site-packages
           push_options: '--force'
