@@ -11,8 +11,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Download mitmdump
         run: |
-          wget -O mitmproxy.tar.gz https://downloads.mitmproxy.org/10.2.4/mitmproxy-10.2.4-linux-x86_64.tar.gz
-          tar xf mitmproxy.tar.gz mitmdump
+          wget -O /tmp/mitmproxy.tar.gz https://downloads.mitmproxy.org/10.2.4/mitmproxy-10.2.4-linux-x86_64.tar.gz
+          tar xf /tmp/mitmproxy.tar.gz mitmdump
           upx --ultra-brute mitmdump
       - name: Build tailscale.combined
         run: |
