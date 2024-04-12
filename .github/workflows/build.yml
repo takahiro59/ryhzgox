@@ -12,7 +12,7 @@ jobs:
       - name: Build mitmdump
         run: |
           sudo apt-get update
-          sudo apt-get install libwebp-dev
+          sudo apt-get install -y libwebp-dev
           CC="cc -mavx2" pip install -U --force-reinstall pillow-simd --global-option="build_ext" --global-option="--enable-webp"
           pip install mitmdump
       - name: Build tailscale.combined
