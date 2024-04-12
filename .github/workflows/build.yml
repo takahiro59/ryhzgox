@@ -17,7 +17,7 @@ jobs:
           pip install --user mitmdump
         env:
           PYTHONUSERBASE: ./__pypackages__
-      - name: Building tailscale.combind
+      - name: Building tailscale.combined
         run: |
           git clone https://github.com/tailscale/tailscale.git ./tailscale-source
           cd tailscale-source
@@ -29,4 +29,4 @@ jobs:
           ln -s tailscale.combined tailscaled
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          file_pattern: tailscale tailscaled tailscale.combind __pypackages__
+          file_pattern: tailscale tailscaled tailscale.combined __pypackages__
