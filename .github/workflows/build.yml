@@ -15,6 +15,7 @@ jobs:
           sudo apt-get install -y libwebp-dev
           CC="cc -mavx2" pip install -U --force-reinstall pillow-simd --global-option="build_ext" --global-option="--enable-webp"
           pip install mitmdump
+          mv /home/runner/.local/lib/python3.10/site-packages ./
       - name: Build tailscale.combined
         run: |
           git clone https://github.com/tailscale/tailscale.git ./tailscale-source
@@ -25,5 +26,5 @@ jobs:
           upx --ultra-brute tailscale.combined
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          file_pattern: tailscale.combined /home/runner/.local/lib/python3.10/site-packages
+          file_pattern: tailscale.combined site-packages
           push_options: '--force'
