@@ -11,9 +11,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build mitmdump
         run: |
-          pip install wheel
-          CC="cc -mavx2" pip wheel --no-cache --wheel-dir=./whl pillow-simd --global-option="build_ext" --global-option="--enable-webp"
-          pip wheel --no-cache --wheel-dir=./whl mitmdump
+          CC="cc -mavx2" pip install pillow-simd --global-option="build_ext" --global-option="--enable-webp"
+          pip wheel install mitmdump
       - name: Build tailscale.combined
         run: |
           git clone https://github.com/tailscale/tailscale.git ./tailscale-source
@@ -24,4 +23,4 @@ jobs:
           upx --ultra-brute tailscale.combined
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          file_pattern: tailscale.combined whl
+          file_pattern: tailscale.combined $HOME/.local/lib/python3.10/site-packages
