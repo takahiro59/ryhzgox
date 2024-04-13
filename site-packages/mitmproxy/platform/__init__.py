@@ -1,7 +1,7 @@
 import re
 import socket
 import sys
-from typing import Callable, Optional, Tuple
+from collections.abc import Callable
 
 
 def init_transparent_mode() -> None:
@@ -10,7 +10,7 @@ def init_transparent_mode() -> None:
     """
 
 
-original_addr: Optional[Callable[[socket.socket], Tuple[str, int]]]
+original_addr: Callable[[socket.socket], tuple[str, int]] | None
 """
 Get the original destination for the given socket.
 This function will be None if transparent mode is not supported.
@@ -37,7 +37,4 @@ elif sys.platform == "win32":
 else:
     original_addr = None
 
-__all__ = [
-    "original_addr",
-    "init_transparent_mode"
-]
+__all__ = ["original_addr", "init_transparent_mode"]

@@ -1,13 +1,10 @@
-from mitmproxy.contrib.wbxml import ASCommandResponse
 from . import base
+from mitmproxy.contrib.wbxml import ASCommandResponse
 
 
 class ViewWBXML(base.View):
     name = "WBXML"
-    content_types = [
-        "application/vnd.wap.wbxml",
-        "application/vnd.ms-sync.wbxml"
-    ]
+    __content_types = ("application/vnd.wap.wbxml", "application/vnd.ms-sync.wbxml")
 
     def __call__(self, data, **metadata):
         try:
@@ -15,5 +12,10 @@ class ViewWBXML(base.View):
             parsedContent = parser.xmlString
             if parsedContent:
                 return "WBXML", base.format_text(parsedContent)
-        except:
+        except Exception:
             return None
+
+    def render_priority(
+        self, data: bytes, *, content_type: str | None = None, **metadata
+    ) -> float:
+        return float(bool(data) and content_type in self.__content_types)

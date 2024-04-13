@@ -1,8 +1,8 @@
-import typing
+from typing import Optional
 
+from mitmproxy import ctx
 from mitmproxy import exceptions
 from mitmproxy import flowfilter
-from mitmproxy import ctx
 
 
 class StickyAuth:
@@ -12,19 +12,19 @@ class StickyAuth:
 
     def load(self, loader):
         loader.add_option(
-            "stickyauth", typing.Optional[str], None,
-            "Set sticky auth filter. Matched against requests."
+            "stickyauth",
+            Optional[str],
+            None,
+            "Set sticky auth filter. Matched against requests.",
         )
 
     def configure(self, updated):
         if "stickyauth" in updated:
             if ctx.options.stickyauth:
-                flt = flowfilter.parse(ctx.options.stickyauth)
-                if not flt:
-                    raise exceptions.OptionsError(
-                        "stickyauth: invalid filter expression: %s" % ctx.options.stickyauth
-                    )
-                self.flt = flt
+                try:
+                    self.flt = flowfilter.parse(ctx.options.stickyauth)
+                except ValueError as e:
+                    raise exceptions.OptionsError(str(e)) from e
             else:
                 self.flt = None
 

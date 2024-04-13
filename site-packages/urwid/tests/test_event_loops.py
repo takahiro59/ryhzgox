@@ -1,4 +1,5 @@
 import os
+import sys
 import unittest
 import platform
 
@@ -7,6 +8,7 @@ from urwid.compat import PYTHON3
 
 
 class EventLoopTestMixin(object):
+    @unittest.skipIf(sys.platform == "win32", reason="does not run on windows")
     def test_event_loop(self):
         rd, wr = os.pipe()
         evl = self.evl
@@ -32,6 +34,7 @@ class EventLoopTestMixin(object):
         evl.alarm(0, step1)
         evl.run()
 
+    @unittest.skipIf(sys.platform == "win32", reason="does not run on windows")
     def test_remove_watch_file(self):
         evl = self.evl
         fd_r, fd_w = os.pipe()
@@ -49,6 +52,7 @@ class EventLoopTestMixin(object):
 
     _expected_idle_handle = 1
 
+    @unittest.skipIf(sys.platform == "win32", reason="does not run on windows")
     def test_run(self):
         evl = self.evl
         out = []
@@ -82,6 +86,7 @@ class EventLoopTestMixin(object):
         self.assertRaises(ZeroDivisionError, evl.run)
 
 
+@unittest.skipIf(sys.platform == "win32", reason="does not run on windows")
 class SelectEventLoopTest(unittest.TestCase, EventLoopTestMixin):
     def setUp(self):
         self.evl = urwid.SelectEventLoop()
@@ -107,6 +112,7 @@ try:
 except ImportError:
     pass
 else:
+    @unittest.skipIf(sys.platform == "win32", reason="does not run on windows")
     class TornadoEventLoopTest(unittest.TestCase, EventLoopTestMixin):
         def setUp(self):
             from tornado.ioloop import IOLoop
@@ -204,7 +210,6 @@ else:
         def test_coroutine_error(self):
             evl = self.evl
 
-            @asyncio.coroutine
             def error_coro():
                 result = 1 / 0 # Simulate error in coroutine
                 yield result

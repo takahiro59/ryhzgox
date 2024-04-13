@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import sys
 import unittest
 import locale
 
@@ -196,6 +197,7 @@ class RleTest(unittest.TestCase):
         self.assertListEqual(rle3, [('A', 10), ('B', 20)])
         self.assertListEqual(rle4, [('A', 10), ('B', 15), ('K', 1)])
 
+@unittest.skipIf(sys.platform == "win32", reason="does not run on windows")
 class PortabilityTest(unittest.TestCase):
     def test_locale(self):
         initial = locale.getlocale()
