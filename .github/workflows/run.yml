@@ -27,5 +27,5 @@ jobs:
         run: |
           rm -rf ~/.local || true
           mv .local ~
-          ~.local/bin/mitmproxy --listen-port 8080 --ssl-insecure -s flows.py --set stream_large_bodies=10m --ignore-hosts '(mzstatic|apple|icloud|mobilesuica|crashlytic|google-analytics|merpay|paypay|rakuten-bank|fate|colopl|rakuten-sec|line|kyash|plexure)' --set block_global=true --set flow_detail=1 --set http2=false --showhost --rawtcp --mode transparent &
+          ~/.local/bin/mitmproxy --listen-port 8080 --ssl-insecure -s flows.py --set stream_large_bodies=10m --ignore-hosts '(mzstatic|apple|icloud|mobilesuica|crashlytic|google-analytics|merpay|paypay|rakuten-bank|fate|colopl|rakuten-sec|line|kyash|plexure)' --set block_global=true --set flow_detail=1 --set http2=false --showhost --rawtcp --mode transparent &
       - run: sleep infinity
