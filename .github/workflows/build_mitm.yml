@@ -1,0 +1,23 @@
+name: Build mitm
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions: 
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build mitmproxy
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebp-dev
+          CC="cc -mavx2" pip install --no-cache --user -U --force-reinstall pillow-simd --global-option="build_ext" --global-option="--enable-webp"
+          pip install --no-cache --user mitmproxy
+        env:
+          PYTHONUSERBASE: ./app
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          file_pattern: app
+          push_options: '--force'
