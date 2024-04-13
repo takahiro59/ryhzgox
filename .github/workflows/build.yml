@@ -13,10 +13,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libwebp-dev
-          CC="cc -mavx2" pip install --no-cache -U --force-reinstall pillow-simd --global-option="build_ext" --global-option="--enable-webp"
-          pip install --no-cache mitmproxy
-          rm -rf site-packages || true
-          mv /home/runner/.local/lib/python3.10/site-packages ./
+          CC="cc -mavx2" pip install --no-cache --user -U --force-reinstall pillow-simd --global-option="build_ext" --global-option="--enable-webp"
+          pip install --no-cache --user mitmproxy
+        env:
+          PYTHONUSERBASE: ./app
       - name: Build tailscale.combined
         run: |
           git clone https://github.com/tailscale/tailscale.git ./tailscale-source
@@ -27,5 +27,5 @@ jobs:
           upx --ultra-brute tailscale.combined
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          file_pattern: tailscale.combined site-packages
+          file_pattern: tailscale.combined app
           push_options: '--force'
