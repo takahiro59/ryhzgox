@@ -3,6 +3,7 @@
 from PIL import Image
 import io, time, gzip
 import brotli
+from mitmproxy import *
 
 def response(flow):
   if "content-type" in flow.response.headers and "content-length" in flow.response.headers:
