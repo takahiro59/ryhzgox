@@ -1,4 +1,4 @@
-name: Build
+name: Build tailscale.combined
 on:
   workflow_dispatch:
 
