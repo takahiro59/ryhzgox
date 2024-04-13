@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+import sys
+sys.path.append('app/lib/python3.10/site-packages')
 from PIL import Image
 import io, time, gzip
 import brotli
