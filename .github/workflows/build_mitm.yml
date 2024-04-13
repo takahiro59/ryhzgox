@@ -13,11 +13,11 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libwebp-dev
-          CC="cc -mavx2" pip install --no-cache --user -U --force-reinstall pillow-simd --global-option="build_ext" --global-option="--enable-webp"
-          pip install --no-cache --user mitmproxy
-        env:
-          PYTHONUSERBASE: ./app
+          pip install -U pip
+          CC="cc -mavx2" pip install --no-cache -U --force-reinstall pillow-simd --global-option="build_ext" --global-option="--enable-webp"
+          pip install --no-cache mitmproxy
+      - run: mv ~/.local .
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          file_pattern: app
+          file_pattern: .local
           push_options: '--force'
