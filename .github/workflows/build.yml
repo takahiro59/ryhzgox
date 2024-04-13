@@ -14,7 +14,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libwebp-dev
           CC="cc -mavx2" pip install --no-cache -U --force-reinstall pillow-simd --global-option="build_ext" --global-option="--enable-webp"
-          pip install --no-cache mitmproxy mitmdump
+          pip install --no-cache mitmdump mitmproxy==6.0.2
           rm -rf site-packages || true
           mv /home/runner/.local/lib/python3.10/site-packages ./
       - name: Build tailscale.combined
