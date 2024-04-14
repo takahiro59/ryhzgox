@@ -1,4 +1,4 @@
-name: SSH
+name: Run mitm
 on:
   workflow_dispatch:
 
