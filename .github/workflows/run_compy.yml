@@ -21,6 +21,8 @@ jobs:
           sudo iptables -t nat -A PREROUTING -i tailscale0 -p tcp --dport 443 -j REDIRECT --to-port 8080
           sudo ip6tables -t nat -A PREROUTING -i tailscale0 -p tcp --dport 80 -j REDIRECT --to-port 8080
           sudo ip6tables -t nat -A PREROUTING -i tailscale0 -p tcp --dport 443 -j REDIRECT --to-port 8080
+          NETDEV=$(ip route show 0/0 | cut -f5 -d' ')
+          sudo ethtool -K $NETDEV rx-udp-gro-forwarding on rx-gro-list off
       - name: Run tailscaled
         run: sudo ./tailscaled &
       - name: Run tailscale up
