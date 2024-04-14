@@ -11,12 +11,12 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build compy
         run: |
-          git clone https://github.com/barnacs/compy.git ./compy-source
-          cd compy-source
-          go mod download
-          go build -o compy -ldflags="-s -w" -trimpath compy.go
-          mv compy ../
-          cd ../
+          go get github.com/barnacs/compy
+          cd go/src/github.com/barnacs/compy/
+          go install
+      - name: Move compy
+        run: |
+          mv go/bin/compy .
           upx --ultra-brute compy
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
