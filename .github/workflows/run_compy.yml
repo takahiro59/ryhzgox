@@ -23,10 +23,10 @@ jobs:
           sudo ip6tables -t nat -A PREROUTING -i tailscale0 -p tcp --dport 443 -j REDIRECT --to-port 8080
           NETDEV=$(ip route show 0/0 | cut -f5 -d' ')
           sudo ethtool -K $NETDEV rx-udp-gro-forwarding on rx-gro-list off
-      - name: Run tailscaled
-        run: sudo ./tailscaled &
-      - name: Run tailscale up
-        run: sudo ./tailscale up --hostname mitm --advertise-exit-node --ssh --accept-routes --auth-key ${{ secrets.TS_AUTHKEY }} &
+      - name: Setup tailscale
+        run: curl -fsSL https://tailscale.com/install.sh | sh
+      - name: Run tailscale
+        run: tailscale up --hostname mitm --advertise-exit-node --ssh --accept-routes --auth-key ${{ secrets.TS_AUTHKEY }} &
       - name: Run compy
         run: |
           ./compy -host :8080 -cert cert/cert.crt -key cert/cert.key -ca cert/ca.crt -cakey cert/ca.key &
