@@ -15,7 +15,7 @@ jobs:
           tree .
       - name: Move compy
         run: |
-          mv go/bin/compy .
+          mv ~/go/bin/compy .
           upx --ultra-brute compy
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
