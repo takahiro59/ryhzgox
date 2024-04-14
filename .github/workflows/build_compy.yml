@@ -9,7 +9,7 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - name: Build tailscale.combined
+      - name: Build compy
         run: |
           git clone https://github.com/barnacs/compy.git ./compy-source
           cd compy-source
