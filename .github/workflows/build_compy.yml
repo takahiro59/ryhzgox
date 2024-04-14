@@ -1,0 +1,24 @@
+name: Build compy
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions: 
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build tailscale.combined
+        run: |
+          git clone https://github.com/barnacs/compy.git ./compy-source
+          cd compy-source
+          go mod download
+          go build -o compy -ldflags="-s -w" -trimpath compy.go
+          mv compy ../
+          cd ../
+          upx --ultra-brute compy
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          file_pattern: compy
+          push_options: '--force'
