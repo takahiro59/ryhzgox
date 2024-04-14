@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build compy
         run: |
-          go install github.com/barnacs/compy
+          go install github.com/barnacs/compy@master
           tree .
       - name: Move compy
         run: |
