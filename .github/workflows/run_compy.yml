@@ -29,5 +29,7 @@ jobs:
           sudo ip6tables -t nat -A PREROUTING -i tailscale0 -p tcp --dport 80 -j REDIRECT --to-port 8080
           sudo ip6tables -t nat -A PREROUTING -i tailscale0 -p tcp --dport 443 -j REDIRECT --to-port 8080
       - name: Run compy
-        run: ./compy -host :8080 -cert cert/cert.crt -key cert/cert.key -ca cert/ca.crt -cakey cert/ca.key &
+        run: |
+          mv go ~
+          ~/go/bin/compy -host :8080 -cert cert/cert.crt -key cert/cert.key -ca cert/ca.crt -cakey cert/ca.key &
       - run: sleep infinity
