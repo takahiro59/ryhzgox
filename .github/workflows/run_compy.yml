@@ -26,7 +26,7 @@ jobs:
       - name: Setup tailscale
         run: curl -fsSL https://tailscale.com/install.sh | sh
       - name: Run tailscale
-        run: tailscale up --hostname mitm --advertise-exit-node --ssh --accept-routes --auth-key ${{ secrets.TS_AUTHKEY }} &
+        run: sudo tailscale up --hostname mitm --advertise-exit-node --ssh --accept-routes --auth-key ${{ secrets.TS_AUTHKEY }} &
       - name: Run compy
         run: |
           ./compy -host :8080 -cert cert/cert.crt -key cert/cert.key -ca cert/ca.crt -cakey cert/ca.key &
