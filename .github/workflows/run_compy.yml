@@ -31,4 +31,4 @@ jobs:
       - name: Run compy
         run: |
           mv go ~
-          ~/go/bin/compy -host :8080 -cert cert/cert.crt -key cert/cert.key -ca cert/ca.crt -cakey cert/ca.key -brotli 11 -jpeg 30 -gzip 9 -minify true
+          ~/go/bin/compy -host :8080 -cert cert/cert.crt -key cert/cert.key -ca cert/ca.crt -cakey cert/ca.key -brotli 11 -jpeg 30 -gzip 9
